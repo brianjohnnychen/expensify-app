@@ -8,7 +8,7 @@ const app = {
 
 // Reference this function, not call it.
 // Calling the function will immediately call and get the return value which is undefined.
-// Referencing does not execute function until submission is deired.
+// Referencing does not execute function until submission is desired.
 const onFormSubmit = (e) => {
     // preventDefault() prevents the entire page refresh
     e.preventDefault()

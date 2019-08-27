@@ -1,42 +1,39 @@
 "use strict";
 
-var bodyText = {
-    text: "I am now visible (default)",
-    isVisible: true
-};
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var toggleVisibility = function toggleVisibility() {
-    if (bodyText.isVisible) {
-        bodyText.isVisible = false;
-        bodyText.text = "";
-    } else {
-        bodyText.isVisible = true;
-        bodyText.text = "I am now visible (set by button)";
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Person = function () {
+    function Person() {
+        var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Anoynmous";
+        var age = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "0";
+
+        _classCallCheck(this, Person);
+
+        this.name = name;
+        this.age = age;
     }
-    renderApp();
-};
 
-var appRoot = document.getElementById("app");
-var renderApp = function renderApp() {
-    var template = React.createElement(
-        "div",
-        null,
-        React.createElement(
-            "h1",
-            null,
-            "Visibility Toggle"
-        ),
-        React.createElement(
-            "button",
-            { onClick: toggleVisibility },
-            bodyText.isVisible ? "Hide content" : "Show content"
-        ),
-        React.createElement(
-            "p",
-            null,
-            bodyText.text
-        )
-    );
-    ReactDOM.render(template, appRoot);
-};
-renderApp();
+    _createClass(Person, [{
+        key: "getGreeting",
+        value: function getGreeting() {
+            // return "Hello " + this.name
+            // Backticks create template strings.
+            return "Hello, this is " + this.name + "!";
+        }
+    }, {
+        key: "getDescription",
+        value: function getDescription() {
+            return " I am " + this.age + " years old.";
+        }
+    }]);
+
+    return Person;
+}();
+
+var me = new Person("Brian Chen", 27);
+console.log(me.getGreeting());
+var you = new Person("", 18);
+console.log(you.getGreeting);
+console.log(you.getGreeting() + you.getDescription());
