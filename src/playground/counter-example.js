@@ -45,7 +45,6 @@ class Counter extends React.Component {
                 <button onClick={this.handleAddOne}>+1</button>
                 <button onClick={this.handleMinusOne}>-1</button>
                 <button onClick={this.handleReset}>Reset</button>
-
             </div>
         )
     }
