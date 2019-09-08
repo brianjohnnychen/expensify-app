@@ -68,61 +68,102 @@ class IndecisionApp extends React.Component {
     }
 }
 
-class Header extends React.Component{
-    render() {
-        return(
-            <div>
-                <h1>{this.props.title}</h1>
-                <h2>{this.props.subtitle}</h2>
-            </div>
-        )
-    }
+const Header = (props) => {
+    return (
+        <div>
+            <h1>{props.title}</h1>
+            <h2>{props.subtitle}</h2>
+        </div>
+    )
 }
 
-class Action extends React.Component{
-    render() {
-        return(
-            <div>
-                <button 
-                    onClick={this.props.handlePick}
-                    disabled={!this.props.hasOptions}
-                >
-                    What should I do?
-                </button>
-            </div>
-        )
-    }
+// class Header extends React.Component{
+//     render() {
+//         return(
+//             <div>
+//                 <h1>{this.props.title}</h1>
+//                 <h2>{this.props.subtitle}</h2>
+//             </div>
+//         )
+//     }
+// }
+
+const Action = (props) => {
+    return (
+        <div>
+            <button
+                onClick={props.handlePick}
+                disabled={!props.hasOptions}
+            >
+                What should I do?
+            </button>
+        </div>
+    )
 }
 
-class Options extends React.Component {
-    constructor(props) {
-        super(props)
+// class Action extends React.Component{
+//     render() {
+//         return(
+//             <div>
+//                 <button 
+//                     onClick={this.props.handlePick}
+//                     disabled={!this.props.hasOptions}
+//                 >
+//                     What should I do?
+//                 </button>
+//             </div>
+//         )
+//     }
+// }
 
-        // This binds the "this" context so whereever we call handleRemoveAll() - the "this" context will be correct.
-        // this.handleRemoveAll = this.handleRemoveAll.bind(this)
-    }
-
-    render() {
-        return(
-            <div>
-                <button onClick={this.props.handleDeleteOptions}>Remove All</button>
-                {
-                    this.props.options.map((option) => <Option key={option} optionText={option}/>)
-                }
-            </div>
-        )
-    }
+const Options = (props) => {
+    return (
+        <div>
+            <button onClick={props.handleDeleteOptions}>Remove All</button>
+            {
+                props.options.map((option) => <Option key={option} optionText={option}/>)
+            }
+        </div>
+    )
 }
 
-class Option extends React.Component {
-    render() {
-        return(
-            <div>
-                Option: {this.props.optionText}
-            </div>
-        )
-    }
+// class Options extends React.Component {
+//     constructor(props) {
+//         super(props)
+
+//         // This binds the "this" context so whereever we call handleRemoveAll() - the "this" context will be correct.
+//         // this.handleRemoveAll = this.handleRemoveAll.bind(this)
+//     }
+
+//     render() {
+//         return(
+//             <div>
+//                 <button onClick={this.props.handleDeleteOptions}>Remove All</button>
+//                 {
+//                     this.props.options.map((option) => <Option key={option} optionText={option}/>)
+//                 }
+//             </div>
+//         )
+//     }
+// }
+
+const Option = (props) => {
+    return(
+        <div>
+            Option: {props.optionText}
+        </div>
+    )
 }
+
+// class Option extends React.Component {
+//     render() {
+//         return(
+//             <div>
+//                 Option: {this.props.optionText}
+//             </div>
+//         )
+//     }
+// }
 
 class AddOption extends React.Component {
     constructor(props) {
@@ -159,6 +200,17 @@ class AddOption extends React.Component {
         )
     }
 }
+
+// Stateless functions and arrow functions do not have access to "this". To access props, pass in as argument.
+// Because name of User is uppercase, React will know to render it as a component rather than an HTML element.
+// const User = (props) => {
+//     return (
+//         <div>
+//             <p>Name: {props.name}</p>
+//             <p>Age: {props.age}</p>
+//         </div>
+//     )
+// }
 
 ReactDOM.render(<IndecisionApp/>, document.getElementById("app"))
 
