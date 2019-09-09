@@ -17,10 +17,11 @@ var IndecisionApp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.state = {
-            options: []
+            options: props.options
         };
 
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
+        _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
         return _this;
@@ -29,9 +30,27 @@ var IndecisionApp = function (_React$Component) {
     _createClass(IndecisionApp, [{
         key: "handleDeleteOptions",
         value: function handleDeleteOptions() {
+            // this.setState(() => {
+            //     return {
+            //         options: []
+            //     }
+            // })
+
+            // This line is same as above. {} is usually an object but when used in arrow functions, it is evaluated as the function body.
+            // To have arrow function return an object, put brackets around the curly braces: ({This is an object})
             this.setState(function () {
+                return { options: [] };
+            });
+        }
+    }, {
+        key: "handleDeleteOption",
+        value: function handleDeleteOption(optionToRemove) {
+            this.setState(function (prevState) {
                 return {
-                    options: []
+                    options: prevState.options.filter(function (option) {
+                        // Filter here will return all options[] elements not equal to the option to remove.
+                        return optionToRemove !== option;
+                    })
                 };
             });
         }
@@ -54,11 +73,9 @@ var IndecisionApp = function (_React$Component) {
                 // Check if option already in the array.
                 return "This option already exists.";
             } else {
+                // Use concat instead of push to return a new array instead of modifying state contents directly.
                 this.setState(function (prevState) {
-                    return {
-                        // Use concat instead of push to return a new array instead of modifying state contents directly.
-                        options: prevState.options.concat([option])
-                    };
+                    return { options: prevState.options.concat([option]) };
                 });
             }
             // This function will get "undefined" back if everything went properly b/c nothing is explicitly returned.
@@ -67,17 +84,17 @@ var IndecisionApp = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var title = "Indecision";
             var subtitle = "Put your life in the hands of a computer.";
 
             return React.createElement(
                 "div",
                 null,
-                React.createElement(Header, { title: title, subtitle: subtitle }),
+                React.createElement(Header, { subtitle: subtitle }),
                 React.createElement(Action, { handlePick: this.handlePick, hasOptions: this.state.options.length > 0 }),
                 React.createElement(Options, {
                     options: this.state.options,
-                    handleDeleteOptions: this.handleDeleteOptions
+                    handleDeleteOptions: this.handleDeleteOptions,
+                    handleDeleteOption: this.handleDeleteOption
                 }),
                 React.createElement(AddOption, {
                     handleAddOption: this.handleAddOption
@@ -89,6 +106,10 @@ var IndecisionApp = function (_React$Component) {
     return IndecisionApp;
 }(React.Component);
 
+IndecisionApp.defaultProps = {
+    options: []
+};
+
 var Header = function Header(props) {
     return React.createElement(
         "div",
@@ -98,7 +119,7 @@ var Header = function Header(props) {
             null,
             props.title
         ),
-        React.createElement(
+        props.subtitle && React.createElement(
             "h2",
             null,
             props.subtitle
@@ -106,16 +127,9 @@ var Header = function Header(props) {
     );
 };
 
-// class Header extends React.Component{
-//     render() {
-//         return(
-//             <div>
-//                 <h1>{this.props.title}</h1>
-//                 <h2>{this.props.subtitle}</h2>
-//             </div>
-//         )
-//     }
-// }
+Header.defaultProps = {
+    title: "Indecision"
+};
 
 var Action = function Action(props) {
     return React.createElement(
@@ -132,21 +146,6 @@ var Action = function Action(props) {
     );
 };
 
-// class Action extends React.Component{
-//     render() {
-//         return(
-//             <div>
-//                 <button 
-//                     onClick={this.props.handlePick}
-//                     disabled={!this.props.hasOptions}
-//                 >
-//                     What should I do?
-//                 </button>
-//             </div>
-//         )
-//     }
-// }
-
 var Options = function Options(props) {
     return React.createElement(
         "div",
@@ -157,7 +156,11 @@ var Options = function Options(props) {
             "Remove All"
         ),
         props.options.map(function (option) {
-            return React.createElement(Option, { key: option, optionText: option });
+            return React.createElement(Option, {
+                key: option,
+                optionText: option,
+                handleDeleteOption: props.handleDeleteOption
+            });
         })
     );
 };
@@ -186,20 +189,18 @@ var Option = function Option(props) {
     return React.createElement(
         "div",
         null,
-        "Option: ",
-        props.optionText
+        props.optionText,
+        React.createElement(
+            "button",
+            {
+                onClick: function onClick(e) {
+                    props.handleDeleteOption(props.optionText);
+                }
+            },
+            "remove"
+        )
     );
 };
-
-// class Option extends React.Component {
-//     render() {
-//         return(
-//             <div>
-//                 Option: {this.props.optionText}
-//             </div>
-//         )
-//     }
-// }
 
 var AddOption = function (_React$Component2) {
     _inherits(AddOption, _React$Component2);
@@ -225,10 +226,7 @@ var AddOption = function (_React$Component2) {
             var error = this.props.handleAddOption(option);
 
             this.setState(function () {
-                return {
-                    // Set state's error property to the error if error is now defined.
-                    error: error
-                };
+                return { error: error };
             });
         }
     }, {
@@ -270,7 +268,7 @@ var AddOption = function (_React$Component2) {
 //     )
 // }
 
-ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById("app"));
+ReactDOM.render(React.createElement(IndecisionApp, { options: ["Uni", "Oreo"] }), document.getElementById("app"));
 
 // React Component must have upper-case starting letter for name 
 // - helps React differentiate between component and html element.
