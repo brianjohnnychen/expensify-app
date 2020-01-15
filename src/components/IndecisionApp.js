@@ -6,17 +6,54 @@ import Header from './Header'
 import Action from './Action'
 
 class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props)
+    state = {
+        options: []
+    }
 
-        this.state = {
-            options: []
+    handleDeleteOptions = () => {
+        // this.setState(() => {
+        //     return {
+        //         options: []
+        //     }
+        // })
+
+        // This line is same as above. {} is usually an object but when used in arrow functions, it is evaluated as the function body.
+        // To have arrow function return an object, put brackets around the curly braces: ({This is an object})
+        this.setState(() => ({options: []}))
+    }
+
+    handleDeleteOption = (optionToRemove) => {
+        this.setState((prevState) => ({
+            options: prevState.options.filter((option) => {
+                // Filter here will return all options[] elements not equal to the option to remove.
+                return optionToRemove !== option
+            })
+        }))
+    }
+
+    handlePick = () => {
+        const randomNum = Math.floor(Math.random() * this.state.options.length)
+        const chosen = this.state.options[randomNum]
+        alert(chosen)
+        console.log(randomNum)
+        return {
+
         }
+    }
 
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this)
-        this.handleDeleteOption = this.handleDeleteOption.bind(this)
-        this.handlePick = this.handlePick.bind(this)
-        this.handleAddOption = this.handleAddOption.bind(this)
+    handleAddOption = (option) => {
+        // Run only if option is an empty string.
+        if(!option) {
+            return "Enter valid value to add item."
+        } else if(this.state.options.indexOf(option) > -1) {
+            // Check if option already in the array.
+            return "This option already exists."
+        } else {
+            // Use concat instead of push to return a new array instead of modifying state contents directly.
+            this.setState((prevState) => ({options: prevState.options.concat([option])}))
+        }
+        // This function will get "undefined" back if everything went properly b/c nothing is explicitly returned.
+        // If something is returned, then it means an error occured. The status of the return value can be passed to child function for action.
     }
 
     componentDidMount() {
@@ -41,52 +78,6 @@ class IndecisionApp extends React.Component {
 
     componentWillUnmount() {
 
-    }
-
-    handleDeleteOptions() {
-        // this.setState(() => {
-        //     return {
-        //         options: []
-        //     }
-        // })
-
-        // This line is same as above. {} is usually an object but when used in arrow functions, it is evaluated as the function body.
-        // To have arrow function return an object, put brackets around the curly braces: ({This is an object})
-        this.setState(() => ({options: []}))
-    }
-
-    handleDeleteOption(optionToRemove) {
-        this.setState((prevState) => ({
-            options: prevState.options.filter((option) => {
-                // Filter here will return all options[] elements not equal to the option to remove.
-                return optionToRemove !== option
-            })
-        }))
-    }
-
-    handlePick() {
-        const randomNum = Math.floor(Math.random() * this.state.options.length)
-        const chosen = this.state.options[randomNum]
-        alert(chosen)
-        console.log(randomNum)
-        return {
-
-        }
-    }
-
-    handleAddOption(option) {
-        // Run only if option is an empty string.
-        if(!option) {
-            return "Enter valid value to add item."
-        } else if(this.state.options.indexOf(option) > -1) {
-            // Check if option already in the array.
-            return "This option already exists."
-        } else {
-            // Use concat instead of push to return a new array instead of modifying state contents directly.
-            this.setState((prevState) => ({options: prevState.options.concat([option])}))
-        }
-        // This function will get "undefined" back if everything went properly b/c nothing is explicitly returned.
-        // If something is returned, then it means an error occured. The status of the return value can be passed to child function for action.
     }
 
     render() {
