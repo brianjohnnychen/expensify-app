@@ -1,7 +1,7 @@
 var nameVar = "Andrew"
 var nameVar = "Mike"
 // Problem with "var" - can not only reassign but can also redefine.
-// "var" is function scoped (cannot access from outside function if declared inside)
+// "var" is function scoped (cannot access from outside function if declared inside), but not block level scoped.
 console.log("nameVar", nameVar)
 
 let nameLet = "Jen"
