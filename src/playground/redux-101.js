@@ -45,6 +45,8 @@ const countReducer = (state = {count: 0}, action) => {
     }
 }
 
+// createStore takes a function and calls it right away once.
+// createStore then gets called each time an action is dispatched.
 const store = createStore(countReducer)
 
 // Subscribe function gets called everytime the store changes.
