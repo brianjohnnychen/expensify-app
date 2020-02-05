@@ -1,7 +1,7 @@
 import {createStore} from 'redux'
 
 // Action generators - functions that return action objects.
-// Object destructure incrementBy
+// Object destructure incrementBy: take the incrementBy property from the argument passed in and set it to 1 by default unless otherwise specified.
 const incrementCount = ({incrementBy = 1} = {}) => ({
         type: 'INCREMENT',
         incrementBy
