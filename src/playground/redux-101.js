@@ -1,7 +1,7 @@
 import {createStore} from 'redux'
 
 // Action generators - functions that return action objects.
-// Object destructure incrementBy
+// Object destructure incrementBy: take the incrementBy property from the argument passed in and set it to 1 by default unless otherwise specified.
 const incrementCount = ({incrementBy = 1} = {}) => ({
         type: 'INCREMENT',
         incrementBy
@@ -45,6 +45,8 @@ const countReducer = (state = {count: 0}, action) => {
     }
 }
 
+// createStore takes a function and calls it right away once.
+// createStore then gets called each time an action is dispatched.
 const store = createStore(countReducer)
 
 // Subscribe function gets called everytime the store changes.
