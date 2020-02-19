@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-// Filter reducer
+// Filters reducer
 const filtersReducerDefaultState = {
     text: '',
     sortBy: 'date',
@@ -33,7 +33,7 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
         case 'SET_END_DATE':
             return {
                 ...state,
-                startDate: action.endDate
+                endDate: action.endDate
             }
         default:
             return state;
