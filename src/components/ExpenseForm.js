@@ -59,15 +59,15 @@ export default class ExpenseForm extends React.Component {
 
         if(!this.state.description || !this.state.amount) {
             // Set error state if missing description or amount.
-            this.setState({ error: "Please enter a proper description and amount." })
+            this.setState(() => ({ error: "Please enter a proper description and amount." }))
         } else {
             // Clear the error.
-            this.setState({ error: '' })
+            this.setState(() => ({ error: '' }))
             this.props.onSubmit({
                 description: this.state.description,
-                amount: parseFloat(this.state.amount),
+                amount: parseFloat(this.state.amount, 10) * 100,
                 createdAt: this.state.createdAt.valueOf(),
-                calendarFocused: this.state.calendarFocused
+                note: this.state.note
             })
         }
     }

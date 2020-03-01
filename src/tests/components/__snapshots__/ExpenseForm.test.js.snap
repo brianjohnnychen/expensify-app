@@ -116,13 +116,13 @@ exports[`should render ExpenseForm with expense data 1`] = `
       onChange={[Function]}
       placeholder="Description"
       type="text"
-      value="rent"
+      value="Rent"
     />
     <input
       onChange={[Function]}
       placeholder="Amount"
       type="text"
-      value="100.95"
+      value="1095"
     />
     <SingleDatePicker
       anchorDirection="left"
