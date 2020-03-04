@@ -9,6 +9,7 @@ const app = express()
 
 // construct path to the public folder
 const publicPath = path.join(__dirname, '..', 'public')
+const port = process.env.PORT || 3000 // port if used on Heroku, use 3000 if not provided
 
 // use public directory to serve up static assets
 app.use(express.static(publicPath))
@@ -20,6 +21,6 @@ app.get('*', (req, res) => {
 })
 
 // start up the server and listen on a specific port
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('Server is up!')
 })
