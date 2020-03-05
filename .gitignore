@@ -2,4 +2,4 @@ yarn-error.log
 node_modules/
 public/dist/
 .env.test
-.env.environment
+.env.development
